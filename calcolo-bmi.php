@@ -1,31 +1,184 @@
 <?php
-// Recuperiamo i dati inviati dal form HTML
-$nome = $_POST['nome'] ?? '';
-$peso = floatval($_POST['peso'] ?? 0);
-$altezzaCm = floatval($_POST['altezza'] ?? 0);
+//server è un array superglobale, request method è una chiave
+$nome='';
+$peso=0;
+$altezzaCm=0;
+$altezzaM=0;
+$bmi=0;
+$categoria='';
+$classe='';
 
-// Calcolo del BMI (altezza convertita in metri)
-$altezzaM = $altezzaCm / 100;
-$bmi = 0;
-if ($altezzaM > 0) {
-    $bmi = $peso / ($altezzaM * $altezzaM);
-}
+//in POST si vedono i risultati
+if($_SERVER["REQUEST_METHOD"]=="POST"){
+        //qui l'utente ha inviato dei dati in post con il form
+        //qui posso controllare le variabili inviate con isset
+        // Recuperiamo i dati inviati dal form HTML
+        $nome = $_POST['nome'] ?? '';
+        $peso = floatval($_POST['peso'] ?? 0);
+        $altezzaCm = floatval($_POST['altezza'] ?? 0);
 
-// Determiniamo la categoria e la classe CSS in base al valore
-if ($bmi < 18.5) {
-    $categoria = "Situazione di sottopeso";
-    $classe = "sottopeso";
-} elseif ($bmi <= 24.9) {
-    $categoria = "Situazione di normopeso";
-    $classe = "normopeso";
-} elseif ($bmi <= 29.29) {
-    $categoria = "Situazione di sovrappeso";
-    $classe = "sovrappeso";
-} else {
-    $categoria = "Situazione di obesità";
-    $classe = "obesita";
-}
+        // Calcolo del BMI (altezza convertita in metri)
+        $altezzaM = $altezzaCm / 100;
+        $bmi = 0;
+        if ($altezzaM > 0) {
+            $bmi = $peso / ($altezzaM * $altezzaM);
+        }
+
+        // Determiniamo la categoria e la classe CSS in base al valore
+        if ($bmi < 18.5) {
+            $categoria = "Situazione di sottopeso";
+            $classe = "sottopeso";
+        } elseif ($bmi <= 24.9) {
+            $categoria = "Situazione di normopeso";
+            $classe = "normopeso";
+        } elseif ($bmi <= 29.29) {
+            $categoria = "Situazione di sovrappeso";
+            $classe = "sovrappeso";
+        } else {
+            $categoria = "Situazione di obesità";
+            $classe = "obesita";
+        }
+    }else{
+        //qui vuol dire che faccio richiesta in get (visualizzo il form)
+    }
 ?>
+
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcolo BMI</title>
+    <style>
+        body {
+            background-color: #F1F3F5;
+            color: #1F2328;
+            font-family: sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        main {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            margin-bottom: 24px;
+            font-size: 24px;
+        }
+
+        .card {
+            background-color: white;
+            width: 360px;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+        }
+
+        /* Distanza di 16px tra i vari gruppi di input */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500; 
+        }
+
+        input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: sans-serif;
+        }
+
+        /* Bottone finale con larghezza piena, sfondo #1F2328, testo bianco e angoli di 8px */
+        button[type="submit"] {
+            background-color: #1F2328;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            font-family: sans-serif;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+    <?php 
+        if($_SERVER["REQUEST_METHOD"]=="GET"){
+    ?>
+            <main>
+            <h1>Calcolatore BMI</h1>
+                <div class="card">
+                    <form method="post" action="calcolo-bmi.php">
+                        <div class="input-group">
+                            <label for="nome">Nome</label>
+                            <input type="text" id="nome" name="nome" value="Luca">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="peso">Peso (kg)</label>
+                            <input type="number" id="peso" name="peso" value="70">
+                        </div>
+
+                        <div class="input-group">
+                            <label for="altezza">Altezza (cm)</label>
+                            <input type="number" id="altezza" name="altezza" value="178">
+                        </div>
+
+                        <button type="submit">Calcola</button>
+                    </form>    
+                </div>        
+            </main>
+
+    <?php 
+        } else{
+    ?>
+            <div class="card-risultato">
+            <h2>Il tuo BMI</h2>
+    
+                <div class="box-dati <?php echo $classe; ?>">
+                <div class="nome"><?php echo htmlspecialchars($nome); ?></div>
+                <div class="dati-valori">Peso: <?php echo $peso; ?> kg &bull; Altezza: <?php echo $altezzaCm; ?> cm</div>
+                <div class="valore-bmi"><?php echo number_format($bmi, 1, ',', ''); ?></div>
+                <div class="categoria"><?php echo $categoria; ?></div>
+            </div>
+
+                <!--<a href="index.html" class="link-indietro">Calcola di nuovo</a>!-->
+            </div>
+
+    <?php
+        }
+    ?>    
+</body>
+</html>
+
+
 <!DOCTYPE html>
 <html lang="it">
 <head>
@@ -121,7 +274,7 @@ if ($bmi < 18.5) {
         <div class="categoria"><?php echo $categoria; ?></div>
     </div>
 
-    <a href="index.html" class="link-indietro">Calcola di nuovo</a>
+    <!--<a href="index.html" class="link-indietro">Calcola di nuovo</a>!-->
 </div>
 
 </body>

@@ -1,11 +1,4 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calcolo BMI</title>
-    <style>
-        body {
+body {
             background-color: #F1F3F5;
             color: #1F2328;
             font-family: sans-serif;
@@ -52,7 +45,7 @@
 
         label {
             font-size: 14px;
-            font-weight: 500;
+            font-weight: 500; 
         }
 
         input {
@@ -79,31 +72,5 @@
         button[type="submit"]:hover {
             opacity: 0.9;
         }
-    </style>
-</head>
-<body>
-    <main>
-        <h1>Calcolatore BMI</h1>
-        <div class="card">
-            <form method="post" action="calcolo-bmi.php">
-                <div class="input-group">
-                    <label for="nome">Nome</label>
-                    <input type="text" id="nome" name="nome" value="Luca">
-                </div>
 
-                <div class="input-group">
-                    <label for="peso">Peso (kg)</label>
-                    <input type="number" id="peso" name="peso" value="70">
-                </div>
-
-                <div class="input-group">
-                    <label for="altezza">Altezza (cm)</label>
-                    <input type="number" id="altezza" name="altezza" value="178">
-                </div>
-
-                <button type="submit">Calcola</button>
-            </form>    
-        </div>        
-    </main>
-</body>
-</html>
+        
