@@ -1,0 +1,135 @@
+body {
+    background-color: #F1F3F5;
+    color: #1F2328;
+    font-family: sans-serif;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 24px;
+    font-size: 24px;
+}
+
+.card {
+    background-color: white;
+    width: 360px;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 500; 
+}
+
+input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+button[type="submit"] {
+    background-color: #1F2328;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 16px;
+    font-family: sans-serif;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+/* Stili per la schermata del risultato */
+.card-risultato {
+    background-color: white;
+    width: 360px;
+    padding: 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    text-align: center;
+}
+
+h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    font-size: 20px;
+}
+
+.box-dati {
+    padding: 24px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.box-dati.sottopeso { background-color: #E3EEF9; border: 2px solid #2F6FB3; }
+.box-dati.normopeso { background-color: #E3F4E6; border: 2px solid #256D34; }
+.box-dati.sovrappeso { background-color: #FCEBD7; border: 2px solid #B32D2D; }
+.box-dati.obesita { background-color: #FBE2E2; border: 2px solid #B32D2D; }
+
+.nome {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.dati-valori {
+    font-size: 15px;
+}
+
+.valore-bmi {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.categoria {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+.box-dati.sottopeso .categoria { color: #2F6FB3; }
+.box-dati.normopeso .categoria { color: #256D34; }
+.box-dati.sovrappeso .categoria, 
+.box-dati.obesita .categoria { color: #B32D2D; }
+
+.link-indietro {
+    display: inline-block;
+    margin-top: 24px;
+    color: #1F2328;
+    text-decoration: underline;
+    font-size: 14px;
+}
